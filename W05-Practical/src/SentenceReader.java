@@ -1,10 +1,12 @@
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.BreakIterator;
+import java.util.*;
 import java.util.regex.Pattern;
+import java.lang.Object;
 
 public class SentenceReader {
 
@@ -23,7 +25,16 @@ public class SentenceReader {
      * @throws IOException May throw an IOException while reading the file
      */
     public List<String> readAllSentences(String filepath) throws IOException {
+        String fileContents = new Scanner(new File(filepath)).useDelimiter("\\Z").next();
+        //String[] sentenceArray = fileContents.split('.');
+        List<String> outputSentences = new ArrayList<>(Arrays.asList(fileContents.split("\\.")));
+        /*for (int i = 0; i < outputSentences.size(); i++) {
+            System.out.println("\nNEW SENTENCE");
+            System.out.println(sanitiseSentence(outputSentences.get(i)));
+        }*/
 
+
+        return outputSentences;
     }
 
     /**

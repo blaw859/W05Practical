@@ -1,3 +1,4 @@
+import java.util.Comparator;
 
 public class ScoredResult<T> implements Comparable<ScoredResult<T>> {
 
@@ -46,4 +47,12 @@ public class ScoredResult<T> implements Comparable<ScoredResult<T>> {
         return Double.compare(other.score, this.score);
     }
 
+    public static Comparator<ScoredResult> byScore() {
+        return new Comparator<ScoredResult>() {
+            @Override
+            public int compare(ScoredResult o1, ScoredResult o2) {
+                return o1.compareTo(o2);
+            }
+        };
+    }
 }
