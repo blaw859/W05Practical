@@ -7,20 +7,23 @@ import java.util.List;
 public class W05Practical {
     private static List<String> aliceSentences = new ArrayList<>();
     public static void main(String[] args) {
-        String filePath = "/Users/benlawrence859/Documents/University/First Year/CS1003/W05Practical/W05-Practical/src/alice.txt";
+        String filePath = args[0];
+        //"/Users/benlawrence859/Documents/University/First Year/CS1003/W05Practical/W05-Practical/src/alice.txt"
+        String inputText = args[1];
+        //"The King turned pale, and shut his note-book hastily"
         SentenceReader readFile = new SentenceReader();
         try {
             aliceSentences = readFile.readAllSentences(filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ScoredResult[] resultsToOutput = getSortedList("The King turned pale, and shut his note-book hastily");
-        for (int i = 0; i < 10; i++) {
+        ScoredResult[] resultsToOutput = getSortedList(inputText);
+        for (int i = 0; i < 50; i++) {
             System.out.println(resultsToOutput[i].getResult()+" "+resultsToOutput[i].getScore()+"\n");
         }
-        System.out.println(getUnion("The King turned pale, and shut his note-book hastily","The King turned pale, and shut his note-book hastily"));
+        /*System.out.println(getUnion("The King turned pale, and shut his note-book hastily","The King turned pale, and shut his note-book hastily"));
         System.out.println(getIntersection("The King turned pale, and shut his note-book hastily","The King turned pale, and shut his note-book hastily"));
-        /*System.out.println("INTERSECTION: "+getIntersection("CHAPTER X","As she said this she looked down at her hands, and was surprised to see\n" +
+        *//*System.out.println("INTERSECTION: "+getIntersection("CHAPTER X","As she said this she looked down at her hands, and was surprised to see\n" +
                 "that she had put on one of the Rabbit's little white kid gloves while\n" +
                 "she was talking "));
         System.out.println("UNION: "+getUnion("CHAPTER X","As she said this she looked down at her hands, and was surprised to see\n" +
@@ -33,8 +36,8 @@ public class W05Practical {
         ArrayList<String> unionList = new ArrayList<>();
         ArrayList<String> inputSentenceBiGrams = stringToBiGram(inputSentence);
         ArrayList<String> aliceSentenceBiGrams = stringToBiGram(aliceSentence);
-        System.out.println(inputSentenceBiGrams);
-        System.out.println(aliceSentenceBiGrams);
+        /*System.out.println(inputSentenceBiGrams);
+        System.out.println(aliceSentenceBiGrams);*/
         if (inputSentenceBiGrams.size() <= aliceSentenceBiGrams.size()) {
             loopAmount = inputSentenceBiGrams.size()-1;
         } else {
@@ -49,7 +52,7 @@ public class W05Practical {
         /*for (int i = 0; i < unionList.size(); i++) {
             System.out.println(unionList.get(i));
         }*/
-        System.out.println(unionList);
+        //System.out.println(unionList);
         return unionList.size();
     }
 
@@ -78,7 +81,7 @@ public class W05Practical {
         /*for (int i = 0; i < intersectionList.size(); i++) {
             System.out.println(intersectionList.get(i));
         }*/
-        System.out.println(intersectionList);
+        //System.out.println(intersectionList);
         //System.out.println("----\n----\n----\n----\n----\n");
         return intersectionList.size();
     }
@@ -86,10 +89,10 @@ public class W05Practical {
     public static ScoredResult[] getSortedList(String inputSentence) {
         ScoredResult<String>[] scoredResultArray = new ScoredResult[aliceSentences.size()];
         for (int i = 0; i < aliceSentences.size(); i++) {
-            System.out.println("UNION: "+ getUnion(inputSentence,aliceSentences.get(i)));
+            /*System.out.println("UNION: "+ getUnion(inputSentence,aliceSentences.get(i)));
             System.out.println("Input Bigrams: "+stringToBiGram(inputSentence));
             System.out.println("INTERSECTION: "+((double)getIntersection(inputSentence,aliceSentences.get(i))));
-            System.out.println("Output Bigrams: "+stringToBiGram(aliceSentences.get(i)));
+            System.out.println("Output Bigrams: "+stringToBiGram(aliceSentences.get(i)));*/
             double jaccardIndex = ((double)getIntersection(inputSentence,aliceSentences.get(i)))/getUnion(inputSentence,aliceSentences.get(i));
             //System.out.println(jaccardIndex);
             scoredResultArray[i] = new ScoredResult(aliceSentences.get(i),jaccardIndex);
